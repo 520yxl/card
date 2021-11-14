@@ -45,13 +45,16 @@ add_filter ( "plugin_action_links_$plugin" , 'plugin_add_settings_link' ) ;
 
 function card_wp_head() {
         if(!is_home()){
-        echo '<meta itemprop="name" content="'.get_the_title($post->ID),'">';
+        echo '<!-- QQCard BEGIN -->
+	<meta itemprop="name" content="'.get_the_title($post->ID),'">';
         echo '<meta itemprop="description" content="'.wp_trim_words( get_the_excerpt($post->ID), 35 ),'">';
             $card_imgurl=wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), array(200,200))[0];
             if($card_imgurl){
-                echo '<meta itemprop="image" content="'.$card_imgurl,'">';
+                echo '<meta itemprop="image" content="'.$card_imgurl,'">
+		<!-- QQCard BEGIN -->';
             }else{
-                echo '<meta itemprop="image" content="'.get_option('card_image_text'),'">';
+                echo '<meta itemprop="image" content="'.get_option('card_image_text'),'">
+		<!-- QQCard BEGIN -->';
             }
         
         }else{
