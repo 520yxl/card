@@ -3,7 +3,7 @@
 Plugin Name: card
 Plugin URI: https://www.520yxl.cn/
 Description: 卡片分享信息自动生成
-Version: 1.1.0
+Version: 1.1.1
 Author: 云轩阁
 Author URI: https://www.520yxl.cn/
 License: GPL
@@ -44,19 +44,17 @@ add_filter ( "plugin_action_links_$plugin" , 'plugin_add_settings_link' ) ;
 
 
 function card_wp_head() {
-        if(!is_home()){
-        echo '<!-- QQCard BEGIN -->
-	<meta itemprop="name" content="'.get_the_title($post->ID),'">';
+        if(!is_front_page()){
+        echo '<!-- QQCard BEGIN -->';
+        echo '<meta itemprop="name" content="'.get_the_title($post->ID),'">';
         echo '<meta itemprop="description" content="'.wp_trim_words( get_the_excerpt($post->ID), 35 ),'">';
             $card_imgurl=wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), array(200,200))[0];
             if($card_imgurl){
-                echo '<meta itemprop="image" content="'.$card_imgurl,'">
-		<!-- QQCard BEGIN -->';
+                echo '<meta itemprop="image" content="'.$card_imgurl,'">';
             }else{
-                echo '<meta itemprop="image" content="'.get_option('card_image_text'),'">
-		<!-- QQCard BEGIN -->';
+                echo '<meta itemprop="image" content="'.get_option('card_image_text'),'">';
             }
-        
+        echo '<!-- QQCard END -->';
         }else{
         echo '<!-- QQCard BEGIN -->
         <meta itemprop="name" content="'.get_option('card_title_text'),'">
